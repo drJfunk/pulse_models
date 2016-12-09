@@ -62,7 +62,13 @@ class KRL(Function1D):
     def evaluate(self, x, K, t_max, rise, decay, c):
 
 
-        f = K*(np.power((((x+c)/(t_max+c))),rise)/power(((d+(rise*np.power((((x+c)/(t_max+c))),(1+rise))))/(decay+r)),((decay+rise)/(1+rise))))
+        dr = decay+rise
+        xc = x+c
+        tc = t_max + c
+        r1 = rise+1
+        xt = xc/tc
+
+        f = K * np.divide(  np.power( xt,rise)  ,   np.power( (decay+ rise * np.power( xt,r1) ) /dr ,dr/r1))
 
         return f
         
